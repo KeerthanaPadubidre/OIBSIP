@@ -13,7 +13,7 @@ public class Transfer {
         try (Connection connection = DatabaseConnection.getConnection()) {
             connection.setAutoCommit(false);
 
-            // Deduct from sender
+            
             String deductQuery = "UPDATE accounts SET balance = balance - ? WHERE user_id = ? AND balance >= ?";
             try (PreparedStatement deductStmt = connection.prepareStatement(deductQuery)) {
                 deductStmt.setDouble(1, amount);
@@ -26,7 +26,7 @@ public class Transfer {
                 }
             }
 
-            // Add to recipient
+            
             String addQuery = "UPDATE accounts SET balance = balance + ? WHERE user_id = ?";
             try (PreparedStatement addStmt = connection.prepareStatement(addQuery)) {
                 addStmt.setDouble(1, amount);
